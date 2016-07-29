@@ -1,0 +1,4 @@
+newly checked out:
+
+sudo npm install
+bower install
