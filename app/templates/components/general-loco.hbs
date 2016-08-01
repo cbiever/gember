@@ -3,18 +3,22 @@
     <h3 class="panel-title">GL {{gl.address}}</h3>
   </div>
   <div class="panel-body">
-    <div class="btn-toolbar" role="toolbar">
-      <div class="button-group" role="group">
-        <button type="button" class="btn btn-default" {{action "minus"}}>
-          <span class="glyphicon glyphicon-minus"/>
+    <div>
+      <span>Speed</span>
+      <button type="button" class="btn btn-default" {{action "minus"}}>
+        <span class="glyphicon glyphicon-minus"/>
+      </button>
+      <span>{{gl.v}}</span>
+      <button type="button" class="btn btn-default" {{action "plus"}}>
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"/>
+      </button>
+    </div>
+    <div>
+      {{#each gl.functions as |function index|}}
+        <button type="button" class="btn btn-default {{if function "active"}}" data-toggle="button" area-pressed={{if function "true" "false"}}>
+          F{{visible-index index}}
         </button>
-      </div>
-      <span class="col-xs-9">{{gl.v}}</span>
-      <div class="button-group" role="group">
-        <button type="button" class="btn btn-default" {{action "plus"}}>
-          <span class="glyphicon glyphicon-plus" aria-hidden="true"/>
-        </button>
-      </div>
+      {{/each}}
     </div>
   </div>
 </div>

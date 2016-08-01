@@ -28,7 +28,6 @@ export default Ember.Route.extend({
         this.store.pushPayload(message.data);
         gl = this.store.peekRecord('gl', gl.address);
         gl.set('bus', bus);
-console.log(message.action + '   ---    ' + JSON.stringify(message.data) + '   ---   ' + JSON.stringify(gl));
       }
       else {
 //        this.store.findRecord('gl', message.data.id, { reload: false }).then(function(gl) {
