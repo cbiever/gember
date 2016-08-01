@@ -1,4 +1,10 @@
 <div class="container-fluid">
-  {{gember-header session=model.session}}
-  {{general-locos gls=model.gls}}
+  {{gember-header session=model}}
+  {{buses-buses buses=model.buses}}
+<!--
+  {{#each model.buses as |bus|}}
+    <div>{{bus.id}}</div>
+    {{general-locos gls=bus.gls}}
+  {{/each}}
+-->
 </div>

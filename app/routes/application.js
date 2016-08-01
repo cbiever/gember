@@ -2,27 +2,43 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   websockets: Ember.inject.service(),
+  session: undefined,
   model() {
-      var socket = this.get('websockets').socketFor('ws://' + location.host + '/api/v1/ws/info');
-      socket.on('message', this.infoMessage, this);
-      var session = this.store.createRecord('session');
+      let self = this;
+      let session = this.store.createRecord('session');
       session.set('mode', 'command');
-      return Ember.RSVP.hash({
-        session: session.save(),
-        gls: this.store.peekAll('gl')
+      return session.save().then(function(session) {
+        self.session = session;
+        let socket = self.get('websockets').socketFor('ws://' + location.host + '/api/v1/ws/info');
+        socket.on('message', self.infoMessage, self);
+        return session;
       });
   },
   infoMessage: function(data) {
-    var message = JSON.parse(data.data);
-    if (message.action == 'create' || message.action == 'update') {
-      this.store.pushPayload(message.data);
-      console.log('gl ' + message.data.data.id + ' created or updated');
-    }
-    else if (message.action == 'delete') {
-      this.store.findRecord('gl', message.data.id, { reload: false }).then(function(gl) {
-        this.store.deleteRecord(gl);
-        console.log('gl ' + gl.id + ' deleted');
-      });
+    let message = JSON.parse(data.data);
+    if (message.data.data.type == 'gl') {
+      let gl = message.data.data.attributes;
+      if (message.action == 'create' || message.action == 'update') {
+        let bus = this.store.peekRecord('bus', gl.bus);
+        if (!bus) {
+          this.store.pushPayload(this.createBus(gl));
+          bus = this.store.peekRecord('bus', gl.bus);
+          bus.set('session', this.session);
+        }
+        this.store.pushPayload(message.data);
+        gl = this.store.peekRecord('gl', gl.address);
+        gl.set('bus', bus);
+console.log(message.action + '   ---    ' + JSON.stringify(message.data) + '   ---   ' + JSON.stringify(gl));
+      }
+      else {
+//        this.store.findRecord('gl', message.data.id, { reload: false }).then(function(gl) {
+//          this.store.deleteRecord(gl);
+//        });
+      }
     } 
+  },
+  createBus: function(gl) {
+    let bus = '{ "data": { "id": ' + gl.bus + ', "type": "bus", "attributes": { } } }';
+    return JSON.parse(bus);
   }
 });
