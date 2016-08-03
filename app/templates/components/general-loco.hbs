@@ -15,7 +15,7 @@
     </div>
     <div>
       {{#each gl.functions as |function index|}}
-        <button type="button" class="btn btn-default {{if function "active"}}" data-toggle="button" area-pressed={{if function "true" "false"}}>
+        <button type="button" class="btn btn-default {{if function "active"}}" data-toggle="button" area-pressed={{if function "true" "false"}} {{action "set" index}}>
           F{{visible-index index}}
         </button>
       {{/each}}
