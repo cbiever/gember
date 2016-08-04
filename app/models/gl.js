@@ -8,7 +8,7 @@ export default Model.extend({
     protocol: attr(),
     protocolVersion: attr(),
     decoderSpeedSteps: attr(),
-    numberOfDecoderFunction: attr(),
+    numberOfDecoderFunctions: attr(),
     drivemode: attr(),
     v: attr(),
     vMax: attr(),
