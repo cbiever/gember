@@ -1,5 +1,10 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-  bus: undefined
+  bus: undefined,
+  actions: {
+    add() {
+
+    }
+  }
 });

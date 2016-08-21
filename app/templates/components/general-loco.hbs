@@ -1,6 +1,12 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">GL {{gl.address}}</h3>
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">GL {{gl.address}}</h3>
+    <button type="button" class="btn btn-default btn-xs pull-right" {{action "remove"}}>
+      <span class="glyphicon glyphicon-remove"/>
+    </button>
+    <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#editDialog">
+      <span class="glyphicon glyphicon-edit"/>
+    </button>
   </div>
   <div class="panel-body">
     <div>
@@ -10,15 +16,37 @@
       </button>
       <span>{{gl.v}}</span>
       <button type="button" class="btn btn-default" {{action "plus"}}>
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"/>
+        <span class="glyphicon glyphicon-plus"/>
+      </button>
+      <button type="button" class="btn btn-default" {{action "changeDrivemode"}}>
+        <span class="glyphicon {{if forward "glyphicon-arrow-right" "glyphicon-arrow-left"}}"/>
+      </button>
+      <button type="button" class="btn btn-default" {{action "stop"}}>
+        <span class="glyphicon glyphicon-stop"/>
       </button>
     </div>
     <div>
       {{#each gl.functions as |function index|}}
-        <button type="button" class="btn btn-default {{if function "active"}}" data-toggle="button" area-pressed={{if function "true" "false"}} {{action "set" index}}>
+        <button type="button" class="btn btn-default {{if function "active"}}" data-toggle="button" area-pressed={{if function "true" "false"}} {{action "setFunction" index}}>
           F{{visible-index index}}
         </button>
       {{/each}}
+    </div>
+  </div>
+  <div id="editDialog" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

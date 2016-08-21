@@ -1,6 +1,9 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Bus {{bus.id}}</h3>
+  <div class="panel-heading clearfix">
+    <h3 class="panel-title pull-left">Bus {{bus.id}}</h3>
+    <button type="button" class="btn btn-default btn-xs pull-right" {{action "add"}}>
+      <span class="glyphicon glyphicon-plus"/>
+    </button>
   </div>
   <div class="panel-body">
     {{general-locos gls=bus.gls}}

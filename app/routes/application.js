@@ -16,8 +16,8 @@ export default Ember.Route.extend({
   },
   infoMessage: function(data) {
     let message = JSON.parse(data.data);
-    if (message.data.data.type == 'gl') {
-      let gl = message.data.data.attributes;
+    if (message.data.type == 'gl') {
+      let gl = message.data.attributes;
       if (message.action == 'create' || message.action == 'update') {
         let bus = this.store.peekRecord('bus', gl.bus);
         if (!bus) {
@@ -25,16 +25,20 @@ export default Ember.Route.extend({
           bus = this.store.peekRecord('bus', gl.bus);
           bus.set('session', this.session);
         }
-        this.store.pushPayload(message.data);
+        this.store.pushPayload(message);
         gl = this.store.peekRecord('gl', gl.address);
         gl.set('bus', bus);
       }
       else {
-//        this.store.findRecord('gl', message.data.id, { reload: false }).then(function(gl) {
-//          this.store.deleteRecord(gl);
-//        });
+        let existingGL = this.store.peekRecord('gl', gl.address);
+        if (existingGL != null && !existingGL.get('isDeleted')) {
+          this.store.findRecord('gl', message.data.id, { reload: false }).then(function(gl) {
+console.log('unloading gl ' + existingGL.get('isDeleted'));
+            this.store.unloadRecord(gl);
+          });
+        }
       }
-    } 
+    }
   },
   createBus: function(gl) {
     let bus = '{ "data": { "id": ' + gl.bus + ', "type": "bus", "attributes": { } } }';
