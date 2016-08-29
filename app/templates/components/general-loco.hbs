@@ -9,25 +9,27 @@
     </button>
   </div>
   <div class="panel-body">
-    <div>
-      <span>Speed</span>
-      <button type="button" class="btn btn-default" {{action "minus"}}>
-        <span class="glyphicon glyphicon-minus"/>
+    <div class="form-group">
+      <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -10}}>
+        <span class="glyphicon glyphicon-backward"/>
       </button>
-      <span>{{gl.v}}</span>
-      <button type="button" class="btn btn-default" {{action "plus"}}>
-        <span class="glyphicon glyphicon-plus"/>
+      <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -1}}>
+        <span class="glyphicon glyphicon-play" style="transform: scaleX(-1);"/>
       </button>
-      <button type="button" class="btn btn-default" {{action "changeDrivemode"}}>
-        <span class="glyphicon {{if forward "glyphicon-arrow-right" "glyphicon-arrow-left"}}"/>
+      <span class="col-lg-2">{{gl.v}}</span>
+      <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 1}}>
+        <span class="glyphicon glyphicon-play"/>
       </button>
-      <button type="button" class="btn btn-default" {{action "stop"}}>
+      <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 10}}>
+        <span class="glyphicon glyphicon-forward"/>
+      </button>
+      <button type="button" class="btn btn-default col-lg-2" {{action "stop"}}>
         <span class="glyphicon glyphicon-stop"/>
       </button>
     </div>
-    <div>
+    <div class="form-group">
       {{#each gl.functions as |function index|}}
-        <button type="button" class="btn btn-default {{if function "active"}}" data-toggle="button" area-pressed={{if function "true" "false"}} {{action "setFunction" index}}>
+        <button type="button" class="btn btn-default {{if function "active"}} col-lg-2" data-toggle="button" area-pressed={{if function "true" "false"}} {{action "setFunction" index}}>
           F{{visible-index index}}
         </button>
       {{/each}}

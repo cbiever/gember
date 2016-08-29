@@ -18,25 +18,27 @@ export default Ember.Route.extend({
     let message = JSON.parse(data.data);
     if (message.data.type == 'gl') {
       let gl = message.data.attributes;
-      if (message.action == 'create' || message.action == 'update') {
-        let bus = this.store.peekRecord('bus', gl.bus);
-        if (!bus) {
-          this.store.pushPayload(this.createBus(gl));
-          bus = this.store.peekRecord('bus', gl.bus);
-          bus.set('session', this.session);
+      let existingGL = this.store.peekRecord('gl', message.data.id);
+      if (existingGL == null || !existingGL.get('isDeleted')) {
+        if (message.action == 'create' || message.action == 'update') {
+          let bus = this.store.peekRecord('bus', gl.bus);
+          if (!bus) {
+            this.store.pushPayload(this.createBus(gl));
+            bus = this.store.peekRecord('bus', gl.bus);
+            bus.set('session', this.session);
+          }
+          this.store.pushPayload(message);
+          gl = this.store.peekRecord('gl', message.data.id);
+          gl.set('bus', bus);
         }
-        this.store.pushPayload(message);
-        gl = this.store.peekRecord('gl', gl.address);
-        gl.set('bus', bus);
-      }
-      else {
-        let existingGL = this.store.peekRecord('gl', gl.address);
-        if (existingGL != null && !existingGL.get('isDeleted')) {
+        else {
           this.store.findRecord('gl', message.data.id, { reload: false }).then(function(gl) {
-console.log('unloading gl ' + existingGL.get('isDeleted'));
             this.store.unloadRecord(gl);
           });
         }
+      }
+      else {
+        console.log('gl ' + gl.address + ' of bus ' + gl.bus + ' is deleted');
       }
     }
   },
