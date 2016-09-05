@@ -9,7 +9,7 @@
     </button>
   </div>
   <div class="panel-body">
-    <div class="form-group">
+    <div class="row">
       <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -10}}>
         <span class="glyphicon glyphicon-backward"/>
       </button>
@@ -23,16 +23,27 @@
       <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 10}}>
         <span class="glyphicon glyphicon-forward"/>
       </button>
-      <button type="button" class="btn btn-default col-lg-2" {{action "stop"}}>
-        <span class="glyphicon glyphicon-stop"/>
-      </button>
+      {{#if forward}}
+        <button type="button" class="btn btn-default col-lg-2" {{action "setBackward"}}>
+          <span class="glyphicon glyphicon-arrow-right"/>
+        </button>
+      {{else}}
+        <button type="button" class="btn btn-default col-lg-2" {{action "setForward"}}>
+          <span class="glyphicon glyphicon-arrow-left"/>
+        </button>
+      {{/if}}
     </div>
-    <div class="form-group">
+    <div class="row">
       {{#each gl.functions as |function index|}}
         <button type="button" class="btn btn-default {{if function "active"}} col-lg-2" data-toggle="button" area-pressed={{if function "true" "false"}} {{action "setFunction" index}}>
           F{{visible-index index}}
         </button>
       {{/each}}
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-default col-lg-2" {{action "stop"}}>
+        <span class="glyphicon glyphicon-stop"/>
+      </button>
     </div>
   </div>
   <div id="editDialog" class="modal fade" role="dialog">

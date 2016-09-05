@@ -2,9 +2,46 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   store: Ember.inject.service('store'),
+  forward: undefined,
   actions: {
     edit() {
 
+    },
+    setSpeed(vDelta) {
+      let gl = this.get('gl');
+      let v = gl.get('v');
+      v += vDelta;
+      if (v < 0) {
+        v = 0;
+      }
+      else if (v > gl.get('vMax')) {
+        v = gl.get('vMax');
+      }
+      gl.set('v', v);
+      gl.save();
+    },
+    setForward() {
+      let gl = this.get('gl');
+      gl.set('drivemode', 1);
+      gl.save();
+      this.set('forward', true);
+    },
+    setBackward() {
+      let gl = this.get('gl');
+      gl.set('drivemode', 0);
+      gl.save();
+      this.set('forward', false);
+    },
+    setFunction(index) {
+      let gl = this.get('gl');
+      let functions = gl.get('functions');
+      functions[index] = functions[index] == 0 ? 1 : 0;
+      gl.save();
+    },
+    stop() {
+      let gl = this.get('gl');
+      gl.set('drivemode', 2);
+      gl.save();
     },
     remove() {
       let gl = this.get('gl');
@@ -26,30 +63,5 @@ export default Ember.Component.extend({
         }
       )
     },
-    setSpeed(vDelta) {
-      let gl = this.get('gl');
-      gl.set('drivemode', vDelta > 0 ? 1 : 0);
-      let v = gl.get('v');
-      v += vDelta;
-      if (v < 0) {
-        v = 0;
-      }
-      else if (v > gl.get('vMax')) {
-        v = gl.get('vMax');
-      }
-      gl.set('v', v);
-      gl.save();
-    },
-    setFunction(index) {
-      let gl = this.get('gl');
-      let functions = gl.get('functions');
-      functions[index] = functions[index] == 0 ? 1 : 0;
-      gl.save();
-    },
-    stop() {
-      let gl = this.get('gl');
-      gl.set('drivemode', 2);
-      gl.save();
-    }
   }
 });
