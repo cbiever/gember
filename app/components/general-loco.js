@@ -3,6 +3,15 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   store: Ember.inject.service('store'),
   forward: undefined,
+  willUpdate() {
+    let gl = this.get('gl');
+    if (gl.get('drivemode') == 0) {
+      this.set('forward', false);
+    }
+    else if (gl.get('drivemode') == 1) {
+      this.set('forward', true);
+    }
+  },
   actions: {
     edit() {
 
@@ -10,6 +19,14 @@ export default Ember.Component.extend({
     setSpeed(vDelta) {
       let gl = this.get('gl');
       let v = gl.get('v');
+      if (gl.get('drivemode') == 2) {
+        if (this.get('forward')) {
+          gl.set('drivemode', 1);
+        }
+        else {
+          gl.set('drivemode', 0);
+        }
+      }
       v += vDelta;
       if (v < 0) {
         v = 0;
