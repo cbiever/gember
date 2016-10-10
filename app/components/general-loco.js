@@ -58,6 +58,7 @@ export default Ember.Component.extend({
     stop() {
       let gl = this.get('gl');
       gl.set('drivemode', 2);
+      gl.set('v', 0);
       gl.save();
     },
     remove() {

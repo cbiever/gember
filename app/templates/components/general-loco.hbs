@@ -9,42 +9,44 @@
     </button>
   </div>
   <div class="panel-body">
-    <div class="row">
-      <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -10}}>
-        <span class="glyphicon glyphicon-backward"/>
-      </button>
-      <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -1}}>
-        <span class="glyphicon glyphicon-play" style="transform: scaleX(-1);"/>
-      </button>
-      <span class="col-lg-2">{{gl.v}}</span>
-      <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 1}}>
-        <span class="glyphicon glyphicon-play"/>
-      </button>
-      <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 10}}>
-        <span class="glyphicon glyphicon-forward"/>
-      </button>
-      {{#if forward}}
-        <button type="button" class="btn btn-default col-lg-2" {{action "setBackward"}}>
-          <span class="glyphicon glyphicon-arrow-right"/>
+    <form role="form">
+      <div class="form-group">
+        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -10}}>
+          <span class="glyphicon glyphicon-backward"/>
         </button>
-      {{else}}
-        <button type="button" class="btn btn-default col-lg-2" {{action "setForward"}}>
-          <span class="glyphicon glyphicon-arrow-left"/>
+        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -1}}>
+          <span class="glyphicon glyphicon-play" style="transform: scaleX(-1);"/>
         </button>
-      {{/if}}
-    </div>
-    <div class="row">
-      {{#each gl.functions as |function index|}}
-        <button type="button" class="btn btn-default {{if function "active"}} col-lg-2" data-toggle="button" area-pressed={{if function "true" "false"}} {{action "setFunction" index}}>
-          F{{visible-index index}}
+        <span class="col-lg-2">{{gl.v}}</span>
+        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 1}}>
+          <span class="glyphicon glyphicon-play"/>
         </button>
-      {{/each}}
-    </div>
-    <div class="row">
-      <button type="button" class="btn btn-default col-lg-2" {{action "stop"}}>
-        <span class="glyphicon glyphicon-stop"/>
-      </button>
-    </div>
+        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 10}}>
+          <span class="glyphicon glyphicon-forward"/>
+        </button>
+        {{#if forward}}
+          <button type="button" class="btn btn-default col-lg-2" {{action "setBackward"}}>
+            <span class="glyphicon glyphicon-arrow-right"/>
+          </button>
+        {{else}}
+          <button type="button" class="btn btn-default col-lg-2" {{action "setForward"}}>
+            <span class="glyphicon glyphicon-arrow-left"/>
+          </button>
+        {{/if}}
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-default col-lg-2" {{action "stop"}}>
+          <span class="glyphicon glyphicon-stop"/>
+        </button>
+      </div>
+      <div class="form-group">
+        {{#each gl.functions as |function index|}}
+          <button type="button" class="btn btn-default {{if function "active"}} col-lg-2" data-toggle="button" area-pressed={{if function "true" "false"}} {{action "setFunction" index}}>
+            F{{visible-index index}}
+          </button>
+        {{/each}}
+      </div>
+    </form>
   </div>
   <div id="editDialog" class="modal fade" role="dialog">
     <div class="modal-dialog">
