@@ -1,0 +1,68 @@
+
+<div class="modal fade" id="addGL" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">Add general loco</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="gl-address" class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-2">
+              {{input class="form-control" type="number" id="gl-address" value=address}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gl-protocol" class="col-sm-3 control-label">Protocol</label>
+            <div class="col-sm-9">
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="gl-protocol-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  {{protocol}}
+                  <span class="caret"/>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="gl-protocol-menu">
+                  <li><a {{action 'setProtocol' 'M'}}>M</a></li>
+                  <li><a {{action 'setProtocol' 'N'}}>N</a></li>
+                  <li><a {{action 'setProtocol' 'P'}}>P</a></li>
+                  <li><a {{action 'setProtocol' 'S'}}>S</a></li>
+                  <li><a {{action 'setProtocol' 'Z'}}>Z</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gl-protocol" class="col-sm-3 control-label">Speed steps</label>
+            <div class="col-sm-9">
+              <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="gl-speed-steps-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                  {{speedSteps}}
+                  <span class="caret"/>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="gl-speed-steps-menu">
+                  <li><a {{action 'setSpeedSteps' 14}}>14</a></li>
+                  <li><a {{action 'setSpeedSteps' 28}}>28</a></li>
+                  <li><a {{action 'setSpeedSteps' 128}}>128</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="" class="col-sm-3 control-label">Functions</label>
+            <div class="col-sm-2">
+              {{input class="form-control" type="number" id="" value=numberOfFunctions}}
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" {{action "add"}}>Add</button>
+      </div>
+    </div>
+  </div>
+</div>
