@@ -7,8 +7,9 @@
     <button type="button" class="btn btn-default btn-xs pull-right" {{action "downloadConfiguration"}}>
       <span class="glyphicon glyphicon-download"/>
     </button>
-    <button type="button" class="btn btn-default btn-xs pull-right">
+    <button type="button" class="btn btn-default btn-xs pull-right" {{action "uploadConfiguration"}} style="margin-right: 5px">
       <span class="glyphicon glyphicon-upload"/>
     </button>
+    <input id="configurationUpload" type="file" style="display: none"/>
   </div>
 </div>
