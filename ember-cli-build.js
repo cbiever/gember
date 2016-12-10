@@ -10,6 +10,7 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/bootstrap/dist/css/bootstrap.css');
   app.import(app.bowerDirectory + '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff', { destDir: 'fonts' });
   app.import(app.bowerDirectory + '/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2', { destDir: 'fonts' });
+  app.import(app.bowerDirectory + '/file-saver/FileSaver.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
