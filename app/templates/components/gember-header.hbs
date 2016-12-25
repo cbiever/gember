@@ -4,10 +4,10 @@
     <h4 class="pull-left">
       <small>Session: {{session.sessionId}}{{#each-in session.infos as |key value|}} {{key}}: {{value}}{{/each-in}}</small>
     </h4>
-    <button type="button" class="btn btn-default btn-xs pull-right" {{action "downloadConfiguration"}}>
+    <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="tooltip" data-placement="top" title="Download configuration" {{action "downloadConfiguration"}}>
       <span class="glyphicon glyphicon-download"/>
     </button>
-    <button type="button" class="btn btn-default btn-xs pull-right" {{action "uploadConfiguration"}} style="margin-right: 5px">
+    <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="tooltip" data-placement="top" title="Upload configuration" {{action "uploadConfiguration"}} style="margin-right: 5px">
       <span class="glyphicon glyphicon-upload"/>
     </button>
     <input id="configurationUpload" type="file" style="display: none"/>

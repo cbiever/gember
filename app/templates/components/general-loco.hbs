@@ -1,47 +1,51 @@
 <div class="panel panel-default">
   <div class="panel-heading clearfix">
     <h3 class="panel-title pull-left">GL {{gl.address}}</h3>
-    <button type="button" class="btn btn-default btn-xs pull-right" {{action "remove"}}>
-      <span class="glyphicon glyphicon-remove"/>
-    </button>
-    <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#editDialog">
-      <span class="glyphicon glyphicon-edit"/>
-    </button>
+    <span data-toggle="tooltip" data-placement="top" title="Remove">
+      <button type="button" class="btn btn-default btn-xs pull-right" {{action "remove"}}>
+        <span class="glyphicon glyphicon-remove"/>
+      </button>
+    </span>
+    <span data-toggle="tooltip" data-placement="top" title="Edit">
+      <button type="button" class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#editDialog" style="margin-right: 5px">
+        <span class="glyphicon glyphicon-edit"/>
+      </button>
+    </span>
   </div>
   <div class="panel-body">
     <form role="form">
       <div class="form-group">
-        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -10}}>
+        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -10}} style="margin: 2px">
           <span class="glyphicon glyphicon-backward"/>
         </button>
-        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -1}}>
+        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -1}} style="margin: 2px">
           <span class="glyphicon glyphicon-play" style="transform: scaleX(-1);"/>
         </button>
-        <span class="col-lg-2">{{gl.v}}</span>
-        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 1}}>
+        <span class="col-lg-2" style="margin: 2px">{{gl.v}}</span>
+        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 1}} style="margin: 2px">
           <span class="glyphicon glyphicon-play"/>
         </button>
-        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 10}}>
+        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 10}} style="margin: 2px">
           <span class="glyphicon glyphicon-forward"/>
         </button>
         {{#if forward}}
-          <button type="button" class="btn btn-default col-lg-2" {{action "setBackward"}}>
+          <button type="button" class="btn btn-default col-lg-2" {{action "setBackward"}} style="margin: 2px">
             <span class="glyphicon glyphicon-arrow-right"/>
           </button>
         {{else}}
-          <button type="button" class="btn btn-default col-lg-2" {{action "setForward"}}>
+          <button type="button" class="btn btn-default col-lg-2" {{action "setForward"}} style="margin: 2px">
             <span class="glyphicon glyphicon-arrow-left"/>
           </button>
         {{/if}}
       </div>
       <div class="form-group">
-        <button type="button" class="btn btn-default col-lg-2" {{action "stop"}}>
+        <button type="button" class="btn btn-default col-lg-2" {{action "stop"}} style="margin: 2px">
           <span class="glyphicon glyphicon-stop"/>
         </button>
       </div>
       <div class="form-group">
         {{#each gl.functions as |function index|}}
-          <button type="button" class="btn btn-default {{if function "active"}} col-lg-2" data-toggle="button" area-pressed={{if function "true" "false"}} {{action "setFunction" index}}>
+          <button type="button" class="btn btn-default col-lg-2 {{if function "active"}}" area-pressed={{if function "true" "false"}} {{action "setFunction" index}} style="margin: 2px">
             F{{visible-index index}}
           </button>
         {{/each}}
