@@ -1,0 +1,27 @@
+<div id="bus-{{gl.bus.id}}-{{gl.id}}-editGL" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title">Edit GL {{gl.address}}</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-4">
+              {{input class="form-control" type="text" value=name}}
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Discard</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" {{action "apply"}}>Apply</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -13,9 +13,6 @@ export default Ember.Component.extend({
     }
   },
   actions: {
-    edit() {
-
-    },
     setSpeed(vDelta) {
       let gl = this.get('gl');
       let v = gl.get('v');
@@ -81,5 +78,10 @@ export default Ember.Component.extend({
         }
       )
     },
+    modify(name) {
+      let gl = this.get('gl');
+      gl.set('name', name);
+      gl.save();
+    }
   }
 });
