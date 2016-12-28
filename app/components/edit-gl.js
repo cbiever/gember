@@ -11,5 +11,6 @@ export default Ember.Component.extend({
     apply() {
       this.get('onModify')(this.get('name'));
     },
-  }
+  },
+  tagName: ''
 });

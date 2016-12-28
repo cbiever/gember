@@ -34,5 +34,6 @@ export default Ember.Component.extend({
       });
       $('#configurationUpload').click();
     }
-  }
+  },
+  tagName: ''
 });

@@ -13,41 +13,55 @@
     </span>
   </div>
   <div class="panel-body">
-    <form role="form">
+    <form role="form" style="width: 100%">
       <div class="form-group">
-        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -10}} style="margin: 2px">
-          <span class="glyphicon glyphicon-backward"/>
-        </button>
-        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" -1}} style="margin: 2px">
-          <span class="glyphicon glyphicon-play" style="transform: scaleX(-1);"/>
-        </button>
-        <span class="col-lg-2" style="margin: 2px">{{gl.v}}</span>
-        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 1}} style="margin: 2px">
-          <span class="glyphicon glyphicon-play"/>
-        </button>
-        <button type="button" class="btn btn-default col-lg-2" {{action "setSpeed" 10}} style="margin: 2px">
-          <span class="glyphicon glyphicon-forward"/>
-        </button>
-        {{#if forward}}
-          <button type="button" class="btn btn-default col-lg-2" {{action "setBackward"}} style="margin: 2px">
-            <span class="glyphicon glyphicon-arrow-right"/>
-          </button>
-        {{else}}
-          <button type="button" class="btn btn-default col-lg-2" {{action "setForward"}} style="margin: 2px">
-            <span class="glyphicon glyphicon-arrow-left"/>
-          </button>
-        {{/if}}
+        <input type="range" max="{{gl.Vmax}}" value="{{gl.v}}" onchange={{action 'setSpeed'}} data-toggle="tooltip" data-placement="top" title="Speed {{gl.v}}"/>
       </div>
       <div class="form-group">
-        <button type="button" class="btn btn-default col-lg-2" {{action "stop"}} style="margin: 2px">
-          <span class="glyphicon glyphicon-stop"/>
-        </button>
+        <span class="col-xs-2">
+          <button type="button" class="btn btn-default" {{action "changeSpeed" -10}}>
+            <span class="glyphicon glyphicon-backward"/>
+          </button>
+        </span>
+        <span class="col-xs-2">
+          <button type="button" class="btn btn-default" {{action "changeSpeed" -1}}>
+            <span class="glyphicon glyphicon-play" style="transform: scaleX(-1);"/>
+          </button>
+        </span>
+        <span class="col-xs-2">
+          <button type="button" class="btn btn-default" {{action "changeSpeed" 1}}>
+            <span class="glyphicon glyphicon-play"/>
+          </button>
+        </span>
+        <span class="col-xs-2">
+          <button type="button" class="btn btn-default" {{action "changeSpeed" 10}}>
+            <span class="glyphicon glyphicon-forward"/>
+          </button>
+        </span>
+        <span class="col-xs-2">
+          {{#if forward}}
+            <button type="button" class="btn btn-default" {{action "setBackward"}}>
+              <span class="glyphicon glyphicon-arrow-right"/>
+            </button>
+          {{else}}
+            <button type="button" class="btn btn-default" {{action "setForward"}}>
+              <span class="glyphicon glyphicon-arrow-left"/>
+            </button>
+          {{/if}}
+        </span>
+        <span class="col-xs-2">
+          <button type="button" class="btn btn-default" {{action "stop"}}>
+            <span class="glyphicon glyphicon-stop"/>
+          </button>
+        </span>
       </div>
       <div class="form-group">
         {{#each gl.functions as |function index|}}
-          <button type="button" class="btn btn-default col-lg-2 {{if function "active"}}" area-pressed={{if function "true" "false"}} {{action "setFunction" index}} style="margin: 2px">
-            F{{visible-index index}}
-          </button>
+          <span class="col-xs-2">
+            <button type="button" class="btn btn-default {{if function "active"}}" area-pressed={{if function "true" "false"}} {{action "setFunction" index}}>
+              F{{visible-index index}}
+            </button>
+          </span>
         {{/each}}
       </div>
     </form>

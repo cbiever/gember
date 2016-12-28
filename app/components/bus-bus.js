@@ -20,5 +20,6 @@ export default Ember.Component.extend({
       });
       gl.save();
     }
-  }
+  },
+  tagName: ''
 });

@@ -16,5 +16,6 @@ export default Ember.Component.extend({
     setSpeedSteps(speedSteps) {
       this.set('speedSteps', speedSteps);
     }
-  }
+  },
+  tagName: ''
 });

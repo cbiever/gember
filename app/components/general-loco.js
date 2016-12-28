@@ -13,7 +13,12 @@ export default Ember.Component.extend({
     }
   },
   actions: {
-    setSpeed(vDelta) {
+    setSpeed(event) {
+      let gl = this.get('gl');
+      gl.set('v', event.target.value);
+      gl.save();
+    },
+    changeSpeed(vDelta) {
       let gl = this.get('gl');
       let v = gl.get('v');
       if (gl.get('drivemode') == 2) {
@@ -83,5 +88,6 @@ export default Ember.Component.extend({
       gl.set('name', name);
       gl.save();
     }
-  }
+  },
+  tagName: ''
 });
