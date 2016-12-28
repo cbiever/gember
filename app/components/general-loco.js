@@ -70,16 +70,15 @@ export default Ember.Component.extend({
       let busId = bus.get('id');
       gl.destroyRecord().then(
         function() {
-          console.log('gl ' + address + ' of bus ' + busId + ' deleted');
+          console.log('gl ' + address + ' of bus ' + busId + ' removed from store');
           if (bus.get('gls.length') == 0) {
-            console.log('deleting bus ' + busId);
             bus.destroyRecord().then(function() {
-              console.log('bus ' + busId + ' destroyed');
+              console.log('bus ' + busId + ' removed from store');
             });
           }
         },
         function(error) {
-          console.log('error deleting gl ' + address + '(' + error + ')');
+          console.log('error removing gl ' + address + '(' + error + ') from store');
         }
       )
     },
