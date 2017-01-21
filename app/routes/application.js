@@ -10,16 +10,21 @@ export default Ember.Route.extend({
       return session.save().then(function(session) {
         self.session = session;
         let socket = self.get('websockets').socketFor('ws://' + location.host + '/api/v1/ws/info');
+        socket.on('open', self.infoChannelOpened, self);
         socket.on('message', self.infoMessage, self);
+        socket.on('close', self.infoChannelClosed, self);
         return session;
       });
+  },
+  infoChannelOpened(event) {
+    console.log(`Infochannel opened at: ${new Date().toLocaleString()}`);
   },
   infoMessage: function(data) {
     let message = JSON.parse(data.data);
     if (message.data.type == 'gl') {
       let gl = message.data.attributes;
       let existingGL = this.store.peekRecord('gl', message.data.id);
-      if (existingGL == null || !existingGL.get('isDeleted')) {
+      if (existingGL === null || !existingGL.get('isDeleted')) {
         if (message.action == 'create' || message.action == 'update') {
           let bus = this.store.peekRecord('bus', gl.bus);
           if (!bus) {
@@ -41,6 +46,9 @@ export default Ember.Route.extend({
         console.log('gl ' + gl.address + ' of bus ' + gl.bus + ' is deleted');
       }
     }
+  },
+  infoChannelClosed(event) {
+    console.log(`Infochannel closed at: ${new Date().toLocaleString()}`);
   },
   createBus: function(gl) {
     let bus = '{ "data": { "id": ' + gl.bus + ', "type": "bus", "attributes": { } } }';

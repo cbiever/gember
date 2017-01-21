@@ -5,30 +5,24 @@ export default Ember.Component.extend({
   forward: undefined,
   willUpdate() {
     let gl = this.get('gl');
-    if (gl.get('drivemode') == 0) {
+    if (gl.get('drivemode') === 0) {
       this.set('forward', false);
     }
-    else if (gl.get('drivemode') == 1) {
+    else if (gl.get('drivemode') === 1) {
       this.set('forward', true);
     }
   },
   actions: {
     setSpeed(event) {
+      this.moveIfStopped();
       let gl = this.get('gl');
       gl.set('v', event.target.value);
       gl.save();
     },
     changeSpeed(vDelta) {
+      this.moveIfStopped();
       let gl = this.get('gl');
       let v = gl.get('v');
-      if (gl.get('drivemode') == 2) {
-        if (this.get('forward')) {
-          gl.set('drivemode', 1);
-        }
-        else {
-          gl.set('drivemode', 0);
-        }
-      }
       v += vDelta;
       if (v < 0) {
         v = 0;
@@ -54,7 +48,7 @@ export default Ember.Component.extend({
     setFunction(index) {
       let gl = this.get('gl');
       let functions = gl.get('functions');
-      functions[index] = functions[index] == 0 ? 1 : 0;
+      functions[index] = functions[index] === 0 ? 1 : 0;
       gl.save();
     },
     stop() {
@@ -71,7 +65,7 @@ export default Ember.Component.extend({
       gl.destroyRecord().then(
         function() {
           console.log('gl ' + address + ' of bus ' + busId + ' removed from store');
-          if (bus.get('gls.length') == 0) {
+          if (bus.get('gls.length') === 0) {
             bus.destroyRecord().then(function() {
               console.log('bus ' + busId + ' removed from store');
             });
@@ -80,12 +74,23 @@ export default Ember.Component.extend({
         function(error) {
           console.log('error removing gl ' + address + '(' + error + ') from store');
         }
-      )
+      );
     },
     modify(name) {
       let gl = this.get('gl');
       gl.set('name', name);
       gl.save();
+    }
+  },
+  moveIfStopped() {
+    let gl = this.get('gl');
+    if (gl.get('drivemode') == 2) {
+      if (this.get('forward')) {
+        gl.set('drivemode', 1);
+      }
+      else {
+        gl.set('drivemode', 0);
+      }
     }
   },
   tagName: ''
