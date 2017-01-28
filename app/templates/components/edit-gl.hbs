@@ -12,8 +12,45 @@
         <form class="form-horizontal" role="form">
           <div class="form-group">
             <label class="col-sm-3 control-label">Name</label>
-            <div class="col-sm-4">
+            <div class="col-sm-9">
               {{input class="form-control" type="text" value=name}}
+            </div>
+          </div>
+          <hr/>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">CV type</label>
+            <div class="dropdown col-sm-2">
+              <button class="btn btn-default dropdown-toggle" type="button" id="cvType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                {{cvType}}
+                <span class="caret"/>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="cvType">
+                <li><a {{action "setCVType" "CV"}}>CV</a></li>
+                <li><a {{action "setCVType" "CVBIT"}}>CVBIT</a></li>
+                <li><a {{action "setCVType" "REG"}}>REG</a></li>
+                <li><a {{action "setCVType" "PAGE"}}>PAGE</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Address</label>
+            <div class="col-sm-2">
+              {{input class="form-control" type="number" min="1" max=cvMaxAddress value=cvAddress}}
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Value</label>
+            <div class="col-sm-2">
+              {{input class="form-control" type="number" min="0" max=cvMaxValue value=cvValue}}
+            </div>
+            <label class="col-sm-1 control-label">Bit</label>
+            <div class="col-sm-2">
+              {{input class="form-control" type="number" min="0" max="7" value=cvBit disabled=cvBitDisabled}}
+            </div>
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-primary" {{action "setCV"}}>
+                Set
+              </button>
             </div>
           </div>
         </form>
