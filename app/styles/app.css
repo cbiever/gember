@@ -47,3 +47,7 @@
 .panel-body form div {
   margin-bottom: 2px;
 }
+
+.error {
+  color: red;
+}

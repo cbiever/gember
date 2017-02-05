@@ -21,7 +21,7 @@
             <label class="col-sm-3 control-label">CV type</label>
             <div class="dropdown col-sm-2">
               <button class="btn btn-default dropdown-toggle" type="button" id="cvType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                {{cvType}}
+                {{cv.type}}
                 <span class="caret"/>
               </button>
               <ul class="dropdown-menu" aria-labelledby="cvType">
@@ -35,24 +35,51 @@
           <div class="form-group">
             <label class="col-sm-3 control-label">Address</label>
             <div class="col-sm-2">
-              {{input class="form-control" type="number" min="1" max=cvMaxAddress value=cvAddress}}
+              {{input class="form-control" type="number" min="1" max=cv.maxAddress value=cv.address focus-out=(action "showValidation" "address")}}
             </div>
           </div>
+          {{#if showAddressValidation}}
+            {{#if (v-get cv "address" "isInvalid")}}
+              <div class="form-group">
+                <div class="error col-sm-offset-3 col-sm-8">
+                  {{v-get cv "address" "message"}}
+                </div>
+              </div>
+            {{/if}}
+          {{/if}}
           <div class="form-group">
             <label class="col-sm-3 control-label">Value</label>
             <div class="col-sm-2">
-              {{input class="form-control" type="number" min="0" max=cvMaxValue value=cvValue}}
+              {{input class="form-control" type="number" min="0" max=cv.maxValue value=cv.value focus-out=(action "showValidation" "value")}}
             </div>
             <label class="col-sm-1 control-label">Bit</label>
             <div class="col-sm-2">
-              {{input class="form-control" type="number" min="0" max="7" value=cvBit disabled=cvBitDisabled}}
+              {{input class="form-control" type="number" min="0" max="7" value=cv.bit disabled=(if cv.bitEnabled false true) focus-out=(action "showValidation" "bit")}}
             </div>
             <div class="col-sm-2">
-              <button type="button" class="btn btn-primary" {{action "setCV"}}>
+              <button type="button" class="btn btn-primary" disabled={{v-get cv 'isInvalid'}} {{action "setCV"}}>
                 Set
               </button>
             </div>
           </div>
+          {{#if showValueValidation}}
+            {{#if (v-get cv "value" "isInvalid")}}
+              <div class="form-group">
+                <div class="error col-sm-offset-3 col-sm-8">
+                  {{v-get cv "value" "message"}}
+                </div>
+              </div>
+            {{/if}}
+          {{/if}}
+          {{#if showBitValidation}}
+            {{#if (v-get cv "bit" "isInvalid")}}
+              <div class="form-group">
+                <div class="error col-sm-offset-3 col-sm-8">
+                  {{v-get cv "bit" "message"}}
+                </div>
+              </div>
+            {{/if}}
+          {{/if}}
         </form>
       </div>
       <div class="modal-footer">

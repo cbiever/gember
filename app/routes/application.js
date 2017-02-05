@@ -2,7 +2,6 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   websockets: Ember.inject.service(),
-  session: undefined,
   model() {
       let self = this;
       let session = this.store.createRecord('session');

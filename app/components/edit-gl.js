@@ -1,63 +1,66 @@
 import Ember from 'ember';
+import { validator, buildValidations } from 'ember-cp-validations';
 
 export default Ember.Component.extend({
   ajax: Ember.inject.service(),
-  gl: undefined,
-  name: undefined,
-  cvType: 'CV',
-  cvAddress: undefined,
-  cvValue: undefined,
-  cvBit: undefined,
-  cvBitDisabled: true,
-  cvMaxAddress: 255,
-  cvMaxValue: 255,
+  store: Ember.inject.service('store'),
+  showValidation: {},
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('name', this.get('gl').get('name'));
+    this.set('cv', this.get('store').createRecord('cv', { type: 'CV' }));
   },
   actions: {
     apply() {
       this.get('onModify')(this.get('name'));
     },
-    setCVType(cvType) {
-      this.set('cvType', cvType);
-      switch (cvType) {
+    setCVType(type) {
+      let cv = this.get('cv');
+      cv.set('type', type);
+      switch (type) {
         case 'CV':
-          this.set('cvMaxAddress', 255);
-          this.set('cvMaxValue', 255);
-          this.set('cvBitDisabled', true);
+        case 'PAGE':
+          cv.set('maxAddress', 255);
+          cv.set('maxValue', 255);
+          cv.set('bitEnabled', false);
           break;
         case 'CVBIT':
-          this.set('cvMaxAddress', 255);
-          this.set('cvMaxValue', 1);
-          this.set('cvBitDisabled', false);
+          cv.set('maxAddress', 255);
+          cv.set('maxValue', 1);
+          cv.set('bitEnabled', true);
           break;
         case 'REG':
-          this.set('cvMaxAddress', 8);
-          this.set('cvMaxValue', 255);
-          this.set('cvBitDisabled', true);
-          break;
-        case 'CV':
-          this.set('cvMaxAddress', 255);
-          this.set('cvMaxValue', 255);
-          this.set('cvBitDisabled', true);
+          cv.set('maxAddress', 8);
+          cv.set('maxValue', 255);
+          cv.set('bitEnabled', false);
           break;
       }
     },
     setCV() {
-      let request = {};
-      request.type = this.get('cvType');
-      request.values = [ ];
-      if (this.get('cvType') == 'CVBIT') {
-        request.values.push(parseInt(this.get('cvBit')));
-      }
-      request.values.push(parseInt(this.get('cvValue')));
-      let gl = this.get('gl');
-      let bus = gl.get('bus');
-      let session = bus.get('session');
-      let url = '/rs/sessions/' + session.get('id') + '/buses/' + bus.get('id') + '/gls/' + gl.get('address') + '/cvs/' + this.get('cvAddress');
+      let cv = this.get('cv');
+      let request = this.createRequest(cv);
+      let url = this.createURL(cv);
       this.get('ajax').put(url, { data: JSON.stringify(request) }).catch(function(error) { console.log('' + error); });
+    },
+    showValidation(name) {
+      this.set('show' + name.capitalize() + 'Validation', true);
     }
+  },
+  createRequest(cv) {
+    let request = {};
+    request.type = cv.get('type');
+    request.values = [ ];
+    if (cv.get('type') == 'CVBIT') {
+      request.values.push(parseInt(cv.get('bit')));
+    }
+    request.values.push(parseInt(cv.get('value')));
+    return request;
+  },
+  createURL(cv) {
+    let gl = this.get('gl');
+    let bus = gl.get('bus');
+    let session = bus.get('session');
+    return '/rs/sessions/' + session.get('id') + '/buses/' + bus.get('id') + '/gls/' + gl.get('address') + '/cvs/' + cv.get('address');
   },
   tagName: ''
 });
