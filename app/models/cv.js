@@ -30,9 +30,6 @@ const Validations = buildValidations({
 export default DS.Model.extend(Validations, {
   type: attr('string'),
   address: attr('number'),
-  maxAddress: attr('number'),
   value: attr('number'),
-  minValue: attr('number'),
   bit: attr('number'),
-  bitEnabled: attr('boolean')
 });

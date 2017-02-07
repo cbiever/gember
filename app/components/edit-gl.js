@@ -1,40 +1,30 @@
 import Ember from 'ember';
-import { validator, buildValidations } from 'ember-cp-validations';
 
 export default Ember.Component.extend({
   ajax: Ember.inject.service(),
   store: Ember.inject.service('store'),
   showValidation: {},
+  cvTypes: [
+     { type: 'CV',    maxAddress: 255, maxValue:255, bitEnabled: false },
+     { type: 'CVBIT', maxAddress: 255, maxValue:  1, bitEnabled: true },
+     { type: 'REG',   maxAddress:   8, maxValue:255, bitEnabled: false  },
+     { type: 'PAGE',  maxAddress: 255, maxValue:255, bitEnabled: false }
+  ],
   didReceiveAttrs() {
     this._super(...arguments);
     this.set('name', this.get('gl').get('name'));
-    this.set('cv', this.get('store').createRecord('cv', { type: 'CV' }));
+    this.set('cv', this.get('store').createRecord('cv', this.cvTypes[0]));
   },
   actions: {
     apply() {
       this.get('onModify')(this.get('name'));
     },
-    setCVType(type) {
+    setCVType(cvType) {
       let cv = this.get('cv');
-      cv.set('type', type);
-      switch (type) {
-        case 'CV':
-        case 'PAGE':
-          cv.set('maxAddress', 255);
-          cv.set('maxValue', 255);
-          cv.set('bitEnabled', false);
-          break;
-        case 'CVBIT':
-          cv.set('maxAddress', 255);
-          cv.set('maxValue', 1);
-          cv.set('bitEnabled', true);
-          break;
-        case 'REG':
-          cv.set('maxAddress', 8);
-          cv.set('maxValue', 255);
-          cv.set('bitEnabled', false);
-          break;
-      }
+      cv.set('type', cvType.type);
+      cv.set('maxAddress', cvType.maxAddress);
+      cv.set('maxValue', cvType.maxValue);
+      cv.set('bitEnabled', cvType.bitEnabled);
     },
     setCV() {
       let cv = this.get('cv');

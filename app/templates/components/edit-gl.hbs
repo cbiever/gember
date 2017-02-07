@@ -25,10 +25,11 @@
                 <span class="caret"/>
               </button>
               <ul class="dropdown-menu" aria-labelledby="cvType">
-                <li><a {{action "setCVType" "CV"}}>CV</a></li>
-                <li><a {{action "setCVType" "CVBIT"}}>CVBIT</a></li>
-                <li><a {{action "setCVType" "REG"}}>REG</a></li>
-                <li><a {{action "setCVType" "PAGE"}}>PAGE</a></li>
+                {{#each cvTypes as |cvType|}}
+                  <li>
+                    <a {{action "setCVType" cvType}}>{{cvType.type}}</a>
+                  </li>
+                {{/each}}
               </ul>
             </div>
           </div>
