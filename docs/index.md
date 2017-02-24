@@ -53,4 +53,4 @@ server {
 
 If al went well Gember should be available at localhost in a browser.
 
-In the upper right corner a yaml configuration file can be uploaded. The docs directory contains an example: [gember.yaml](docs/gember.yaml).
+In the upper right corner a yaml configuration file can be uploaded. The docs directory contains an example: [gember.yaml](https://github.com/cbiever/gember/blob/master/docs/gember.yaml).
