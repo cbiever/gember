@@ -1,0 +1,50 @@
+1:
+  3:
+    name: New
+    protocol: "N"
+    protocol-version: 1
+    decoder-speed-steps: 128
+    number-of-decoder-functions: 5
+    v-max: 128
+  7:
+    name: F7
+    protocol: "N"
+    protocol-version: 1
+    decoder-speed-steps: 128
+    number-of-decoder-functions: 5
+    v-max: 128
+  11:
+    name: BR 110.3
+    protocol: "N"
+    protocol-version: 1
+    decoder-speed-steps: 128
+    number-of-decoder-functions: 1
+    v-max: 128
+  13:
+    name: BR 103
+    protocol: "N"
+    protocol-version: 1
+    decoder-speed-steps: 128
+    number-of-decoder-functions: 1
+    v-max: 128
+  19:
+    name: E 19
+    protocol: "N"
+    protocol-version: 1
+    decoder-speed-steps: 128
+    number-of-decoder-functions: 5
+    v-max: 128
+  20:
+    name: BR 220
+    protocol: "N"
+    protocol-version: 1
+    decoder-speed-steps: 128
+    number-of-decoder-functions: 5
+    v-max: 128
+  68:
+    name: Krokodil
+    protocol: "N"
+    protocol-version: 1
+    decoder-speed-steps: 128
+    number-of-decoder-functions: 5
+    v-max: 128
