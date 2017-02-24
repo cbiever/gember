@@ -13,6 +13,7 @@ One other thing is needed, a reverse proxy to bring Gember and Srcp-rs together:
 
  - install Nginx
  - in the servers directory of the Nginx installation create a file with the name gember and the following content:
+
 ```
 server {
   listen 80 default_server;
@@ -23,7 +24,6 @@ server {
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
     proxy_set_header Host $http_host;
     proxy_set_header X-NginX-Proxy true;
-
     proxy_pass http://127.0.0.1:4200;
     proxy_redirect off;
   }
@@ -48,6 +48,7 @@ server {
   }
 }
 ```
+
  - finally start Nginx with the command: nginx -c nginx.conf
 
 If al went well Gember should be available at localhost in a browser.
