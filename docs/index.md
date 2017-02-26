@@ -2,6 +2,8 @@
 
 Gember is a responsive web application for controlling a model railroad. It needs [srcp-rs](http://cbiever.github.io/srcp-rs) as a provider of a REST backend.
 
+![Gember](https://raw.githubusercontent.com/cbiever/gember/master/docs/overview.png)
+
 ## Installation
 
  - clone the project: git clone https://github.com/cbiever/gember
@@ -94,6 +96,10 @@ server {
 }
 ```
 
-![Gember](https://raw.githubusercontent.com/cbiever/gember/master/docs/overview.png)
+Adding a general loco:
+
 ![Add GL](https://raw.githubusercontent.com/cbiever/gember/master/docs/add_gl.png)
+
+Editing of a general loco:
+
 ![Edit GL](https://raw.githubusercontent.com/cbiever/gember/master/docs/edit_gl.png)
