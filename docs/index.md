@@ -94,6 +94,6 @@ server {
 }
 ```
 
-![Gember](docs/overview.png)
-![Add GL](docs/add_gl.png)
-![Edit GL](docs/edit_gl.png)
+![Gember](https://raw.githubusercontent.com/cbiever/gember/master/docs/overview.png)
+![Add GL](https://raw.githubusercontent.com/cbiever/gember/master/docs/add_gl.png)
+![Edit GL](https://raw.githubusercontent.com/cbiever/gember/master/docs/edit_gl.png)
